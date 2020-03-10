@@ -2,14 +2,15 @@
 
 SetVolumeForSkill();
 misty.Pause(3000);
+
 WelcomePhase();
-misty.Pause(43000);
+misty.Pause(41000);
 
 StorytellingPhase();
 misty.Pause(20000);
 
 SurprisePhase();
-misty.Pause(10000);
+misty.Pause(7000);
 
 FarewellPhase();
 misty.Pause(10000);
@@ -18,7 +19,7 @@ misty.DisplayImage("e_DefaultContent.jpg");
 
 
 function SetVolumeForSkill() {
-    misty.SetDefaultVolume(5);
+    misty.SetDefaultVolume(30);
 }
 
 function WelcomePhase() {
@@ -57,7 +58,7 @@ function StorytellingPhase() {
     var story2 = '<speak> \
                 In Rome the famous actress Sophia Loren was waiting alone for an airplane. \
                 She was going to a set to take part in a movie and she was carrying a lot of bags. \
-                Mr. Giorgio Fedawn loved cinema and he recognized her immediately. \
+                Mister Giorgio Fedawn loved cinema and he recognized her immediately. \
                 He kindly asked her with her heavy luggage and they spent the next hour talking about cinema. \
                 </speak>';
     var story3 = '<speak> \
@@ -87,7 +88,6 @@ function SurprisePhase() {
     misty.Speak(surprise1);
     misty.DisplayImage("e_Joy.jpg");
     misty.Pause(13000);
-    misty.DisplayImage("e_DefaultContent.jpg");
     misty.Speak(surprise2);
     misty.DisplayImage("celebration.jpg");
     misty.Pause(7000);
