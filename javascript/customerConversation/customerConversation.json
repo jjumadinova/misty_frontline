@@ -1,0 +1,19 @@
+{
+  "Name": "customerConversation",
+  "UniqueId": "85aa9759-105a-42c0-93e7-14e888a6720a",
+  "Description": "I can talk with my customers",
+  "StartupRules": [
+    "Manual",
+    "Robot"
+  ],
+  "Language": "javascript",
+  "BroadcastMode": "verbose",
+  "TimeoutInSeconds": 600,
+  "CleanupOnCancel": true,
+  "WriteToLog": false,
+  "Parameters": {
+    "int": 10,
+    "double": 20.5,
+    "string": "twenty"
+  }
+}
