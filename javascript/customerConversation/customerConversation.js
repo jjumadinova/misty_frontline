@@ -3,15 +3,22 @@
 SetVolumeForSkill();
 misty.Pause(3000);
 WelcomePhase();
-misty.Pause(45000);
+misty.Pause(43000);
+
 StorytellingPhase();
-misty.Pause(50000);
-SurprisePhase();
 misty.Pause(20000);
+
+SurprisePhase();
+misty.Pause(10000);
+
 FarewellPhase();
+misty.Pause(10000);
+
+misty.DisplayImage("e_DefaultContent.jpg");
+
 
 function SetVolumeForSkill() {
-    misty.SetDefaultVolume(1);
+    misty.SetDefaultVolume(5);
 }
 
 function WelcomePhase() {
@@ -29,22 +36,20 @@ function WelcomePhase() {
                     You may buy up to two items of your liking \
                     </speak>';
     misty.Speak(welcome1);
+    misty.Pause(1000);
     misty.DisplayImage("e_Admiration.jpg");
     misty.Pause(3000);
-    misty.DisplayImage("e_DefaultContent.jpg");
     misty.Speak(welcome2);
-    misty.DisplayImage("e_EcstacyStarryeyed.jpg");
-    misty.Pause(3000);
     misty.DisplayImage("e_DefaultContent.jpg");
+    misty.Pause(3000);
     misty.Speak(welcome3);
     misty.DisplayImage("e_Surprise.jpg");
     misty.Pause(3000);
     misty.DisplayImage("e_DefaultContent.jpg");
+    misty.Pause(3000);
     misty.Speak(welcome4);
     misty.DisplayImage("e_Love.jpg");
     misty.Pause(3000);
-    misty.DisplayImage("e_DefaultContent.jpg");
-
 }
 
 function StorytellingPhase() {
@@ -62,16 +67,13 @@ function StorytellingPhase() {
                 </speak>';
     misty.Speak(story1);
     misty.DisplayImage("e_Joy.jpg");
-    misty.Pause(3000);
-    misty.DisplayImage("e_DefaultContent.jpg");
+    misty.Pause(5000);
     misty.Speak(story2);
-    misty.DisplayImage("e_Joy2.jpg");
-    misty.Pause(3000);
     misty.DisplayImage("e_DefaultContent.jpg");
+    misty.Pause(22000);
     misty.Speak(story3);
-    misty.DisplayImage("e_Admiration.jpg");
+    misty.DisplayImage("e_Love.jpg");
     misty.Pause(3000);
-    misty.DisplayImage("e_DefaultContent.jpg");
 }
 
 function SurprisePhase() {
@@ -83,25 +85,27 @@ function SurprisePhase() {
                     The gift is in the bin on the wall. Feel free to take the present. I hope you like it! \
                     </speak>';
     misty.Speak(surprise1);
-    misty.DisplayImage("celebration.jpg");
-    misty.Pause(3000);
+    misty.DisplayImage("e_Joy.jpg");
+    misty.Pause(13000);
     misty.DisplayImage("e_DefaultContent.jpg");
     misty.Speak(surprise2);
-    misty.DisplayImage("e_Joy.jpg");
-    misty.Pause(3000);
+    misty.DisplayImage("celebration.jpg");
+    misty.Pause(7000);
     misty.DisplayImage("e_DefaultContent.jpg");
 }
 
 function FarewellPhase() {
     var farewell = '<speak> It was nice to meet you. I wish you a wonderful day </speak>';
     misty.Speak(farewell);
+    misty.DisplayImage("e_Joy.jpg");
+    misty.Pause(5000);
     misty.DisplayImage("e_Sleepy.jpg");
-    misty.Pause(2000);
+    misty.Pause(1000);
     misty.DisplayImage("e_Sleepy2.jpg");
-    misty.Pause(2000);
+    misty.Pause(1000);
     misty.DisplayImage("e_Sleepy3.jpg");
-    misty.Pause(2000);
+    misty.Pause(1000);
     misty.DisplayImage("e_Sleepy4.jpg");
-    misty.Pause(2000);
+    misty.Pause(1000);
     misty.DisplayImage("e_SleepingZZZ.jpg");
 }
