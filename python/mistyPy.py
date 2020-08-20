@@ -136,13 +136,13 @@ class Robot:
     def takePicture(self):
         camera_raw = requests.get('http://' + self.ip + '/api/cameras/rgb?base64=true')
         base64str = camera_raw.json()["result"]["base64"]
-        imgdata = basecamera_raw.json()["result"]["base64"]64.b64decode(base64str)
+        imgdata = base64.b64decode(base64str)
         return imgdata
 
     def takePicture_save(self):
         camera_raw = requests.get('http://' + self.ip + '/api/cameras/rgb?base64=true')
         base64str = camera_raw.json()["result"]["base64"]
-        imgdata = basecamera_raw.json()["result"]["base64"]64.b64decode(base64str)
+        imgdata = base64.b64decode(base64str)
         name = camera_raw.json()["result"]["name"]
         filename = "new_images/" + name
         with open(filename, 'wb') as f:
