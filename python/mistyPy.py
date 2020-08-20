@@ -3,12 +3,16 @@ import json
 import threading
 import time
 import websocket
+import sys
+import base64
+import cv2
 
 try:
     import thread
 except ImportError:
     import _thread as thread
 from random import*
+import predict_emotion_cnn
 
 class Robot:
 
@@ -147,12 +151,37 @@ class Robot:
         filename = "new_images/" + name
         with open(filename, 'wb') as f:
             f.write(imgdata)
+        return filename
 
     def startFaceRecognition(self):
         requests.post('http://' + self.ip + '/api/faces/recognition/start')
 
     def stopFaceRecognition(self):
         requests.post('http://'+self.ip+'/api/faces/recognition/stop')
+
+    def save_face_per_sec(self):
+        self.subscribe("FaceRecognition")
+        count = 0
+        while True:
+            if count == 10:
+                sys.exit("Detected 10 times!")
+            msg, flag = self.faceRec()
+            print(flag)
+            print(msg)
+            if flag == "Face detected":
+                face_jpg = self.takePicture_save()
+                # img = cv2.imread(face_jpg)
+                # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                # print(img.shape[:2]) # (4160, 3120)
+                # face = cv2.resize(img, (1366, 1025))
+                # face = cv2.resize(img, (48, 48))
+                predict_emotion_cnn.predict_emotion(face_jpg)
+                # cv2.imshow("detected face", face)
+                # cv2.waitKey(1000)
+                # cv2.destroyAllWindows()
+            count += 1
+            time.sleep(1)
+        self.unsubscribe("FaceRecognition")
 
     def printLearnedFaces(self):
         print(self.faces_saved)
@@ -262,11 +291,15 @@ class Robot:
 
     def faceRec(self):
         data = json.loads(self.face_recognition_instance.data)
+        flag = ""
         try:
+            res = data.get("message")
             out = "{ \"personName\" : \"" + data["message"]["personName"] + "\", \"distance\" : \"" + str(data["message"]["distance"]) + "\", \"elevation\" :\"" + str(data["message"]["elevation"]) + "\"}"
-            return(json.loads(out))
+            flag = "Face detected"
+            return res, flag
         except:
-            return json.loads(self.face_recognition_instance.data)
+            flag = "Can't find face"
+            return json.loads(self.face_recognition_instance.data), flag
 
 
     def subscribe(self,Type,value=None,debounce =0):
