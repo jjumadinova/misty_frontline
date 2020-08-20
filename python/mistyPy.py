@@ -350,18 +350,18 @@ class Socket:
         self.initial_flag = True
 
         dexter = threading.Thread(target=self.initiate)
+        dexter.daemon = True
         dexter.start()
 
     def initiate(self):
         websocket.enableTrace(True)
         self.ws = websocket.WebSocketApp("ws://"+self.ip+"/pubsub",on_message = self.on_message,on_error = self.on_error,on_close = self.on_close)
         self.ws.on_open = self.on_open
+        self.ws.keep_running = True
         self.ws.run_forever(ping_timeout=10)
 
-    def on_message(self,ws,message):
-        if self.initial_flag:
-            self.initial_flag = False
-        else:
+    def on_message(self,message):
+        if message is not None:
             self.data = message
 
     def on_error(self,ws, error):
@@ -372,10 +372,8 @@ class Socket:
         self.data = "{\"status\":\"Not_Subscribed or just waiting for data\"}"
         print("###",self.Type," socket is closed ###")
 
-    def on_open(self,ws):
-        def run(*args):
-            self.ws.send(str(self.get_subscribe_message(self.Type)))
-        thread.start_new_thread(run, ())
+    def on_open(self):
+        self.ws.send(str(self.get_subscribe_message(self.Type)))
 
     def unsubscribe(self):
         self.on_close(self.ws)
@@ -415,7 +413,7 @@ class Socket:
 
             subscribeMsg = {
                 "Operation": "subscribe",
-                "Type": self.value,
+                "Type": self.Type,
                 "DebounceMs": self.debounce,
                 "EventName": self.event_name,
                 "Message": "",
