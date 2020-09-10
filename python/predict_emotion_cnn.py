@@ -36,7 +36,7 @@ def predict_emotion(face):
     custom = model.predict(x)
     emotion_analysis(custom[0])
     y = np.array(y, 'float32')
-    y = x.reshape([48, 48]);
+    y = x.reshape([48, 48])
 
     plt.gray()
     plt.imshow(show_img)
