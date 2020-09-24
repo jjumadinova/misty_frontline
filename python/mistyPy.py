@@ -156,8 +156,17 @@ class Robot:
     def startFaceRecognition(self):
         requests.post('http://' + self.ip + '/api/faces/recognition/start')
 
+    def startRecordingAudio(self, file_name, apply=False, overwrite=False):
+        with open(file_name, 'rb') as f:
+            encoded_string = base64.b64encode(f.read()).decode('ascii')
+            data={"FileName": file_name, "Data": encoded_string, "ImmediatelyApply" : apply, "OverwriteExisting": overwrite}
+            requests.post('http://' + self.ip + '/api/audio/record/start', json=data)
+
     def stopFaceRecognition(self):
         requests.post('http://'+self.ip+'/api/faces/recognition/stop')
+
+    def stopRecordingAudio(self):
+        requests.post('http://'+self.ip+'/api/audio/record/start')
 
     def save_face_per_sec(self):
         self.subscribe("FaceRecognition")
